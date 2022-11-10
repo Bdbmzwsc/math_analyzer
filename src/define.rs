@@ -1,8 +1,5 @@
-#[derive(Debug)]
-#[derive(PartialEq)]
-#[derive(Clone)]
-pub enum TokenType{
-
+#[derive(Debug, PartialEq, Clone)]
+pub enum TokenType {
     RightPrt,
     LeftPrt,
     Plus,
@@ -11,5 +8,5 @@ pub enum TokenType{
     Multi,
     Divison,
     None,
-    EOF
+    EOF,
 }

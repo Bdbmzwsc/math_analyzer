@@ -34,12 +34,12 @@ impl Lexer {
     }
     pub fn look_ahead_and_skip(&mut self, assert_token: TokenType) {
         let token = self.get_next_token();
-        let a=token.clone();
+        let a = token.clone();
         if token.0 != assert_token {
             self.next_token = token;
             self.next_token.2 = 1;
         }
-        println!("{:?}",a.1.unwrap());
+        println!("{:?}", a.1.unwrap());
     }
     pub fn next_token_is(&mut self, assert_token: TokenType) -> Token {
         let token = self.get_next_token();
@@ -89,13 +89,6 @@ impl Lexer {
     pub fn skip_src(&mut self, n: usize) {
         self.ptr += n;
     }
-    pub fn scan_before_token(&self, token: char) -> &str {
-        let s: Vec<&str> = self.code.split(token).collect();
-        if s.len() < 2 {
-            panic!("Error at scan_before_token");
-        }
-        s[0]
-    }
     pub fn next_code_is(&mut self, code: &String) -> bool {
         let mut it = self.code.chars().skip(self.ptr);
         for i in code.chars() {
@@ -115,7 +108,7 @@ impl Lexer {
         let mut t = it.next();
         if let Some('1'..='9') = t {
             str.push(t.unwrap());
-            self.ptr+=1;
+            self.ptr += 1;
             t = it.next();
             while let Some('0'..='9') = t {
                 str.push(t.unwrap());
@@ -165,6 +158,6 @@ pub mod test {
         let mut l = Lexer::new(s);
         l.look_ahead_and_skip(TokenType::LeftPrt);
         l.look_ahead_and_skip(TokenType::Num);
-        l.look_ahead_and_skip(TokenType::Num);   
+        l.look_ahead_and_skip(TokenType::Num);
     }
 }
