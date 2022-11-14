@@ -1,6 +1,6 @@
 use super::define::TokenType;
 #[derive(PartialEq, Clone)]
-pub struct Token(TokenType, Option<String>, usize);
+pub struct Token(pub TokenType, pub Option<String>, pub usize);
 
 pub struct Lexer {
     code: String,
@@ -50,7 +50,7 @@ impl Lexer {
     }
 
     pub fn match_token(&mut self) -> Token {
-        if self.ptr == self.code.len() - 1 {
+        if self.ptr == self.code.len() {
             return Token(TokenType::EOF, Some("".to_string()), self.line);
         }
         match &self.code[self.ptr..].chars().next().unwrap() {
@@ -159,5 +159,11 @@ pub mod test {
         l.look_ahead_and_skip(TokenType::LeftPrt);
         l.look_ahead_and_skip(TokenType::Num);
         l.look_ahead_and_skip(TokenType::Num);
+    }
+    #[test]
+    pub fn test_for_EOF(){
+        let s=String::from("1+1");
+        let mut l = Lexer::new(s);
+        l.next_token_is(TokenType::Num);
     }
 }
